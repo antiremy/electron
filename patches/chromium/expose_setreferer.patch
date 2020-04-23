@@ -1,0 +1,21 @@
+diff --git a/net/url_request/url_request_http_job.cc b/net/url_request/url_request_http_job.cc
+index dbe39ae8eead..f1c075c6cb69 100644
+--- a/net/url_request/url_request_http_job.cc
++++ b/net/url_request/url_request_http_job.cc
+@@ -421,14 +421,14 @@ void URLRequestHttpJob::Start() {
+   // Strip Referer from request_info_.extra_headers to prevent, e.g., plugins
+   // from overriding headers that are controlled using other means. Otherwise a
+   // plugin could set a referrer although sending the referrer is inhibited.
+-  request_info_.extra_headers.RemoveHeader(HttpRequestHeaders::kReferer);
++  /*request_info_.extra_headers.RemoveHeader(HttpRequestHeaders::kReferer);
+
+   // Our consumer should have made sure that this is a safe referrer. See for
+   // instance WebCore::FrameLoader::HideReferrer.
+   if (referrer.is_valid()) {
+     request_info_.extra_headers.SetHeader(HttpRequestHeaders::kReferer,
+                                           referrer.spec());
+-  }
++  }*/
+
+   request_info_.extra_headers.SetHeaderIfMissing(
+       HttpRequestHeaders::kUserAgent,

@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Remington Arneson <antiremy@me.com>
+Date: Wed, 28 Aug 2019 12:21:25 -0700
+Subject: expose referer on request
+
+Applying
+https://chromium-review.googlesource.com/c/chromium/src/+/1585083 before
+it's merged. There may end up being a better way of doing this, or the
+patch may be merged upstream, at which point this patch should be
+removed.
+
+diff --git a/net/url_request/url_request_http_job.cc b/net/url_request/url_request_http_job.cc
+index dbe39ae8eead..f1c075c6cb69 100644
+--- a/net/url_request/url_request_http_job.cc
++++ b/net/url_request/url_request_http_job.cc
+@@ -421,14 +421,14 @@ void URLRequestHttpJob::Start() {
+   // Strip Referer from request_info_.extra_headers to prevent, e.g., plugins
+   // from overriding headers that are controlled using other means. Otherwise a
+   // plugin could set a referrer although sending the referrer is inhibited.
+-  request_info_.extra_headers.RemoveHeader(HttpRequestHeaders::kReferer);
++  /*request_info_.extra_headers.RemoveHeader(HttpRequestHeaders::kReferer);
+
+   // Our consumer should have made sure that this is a safe referrer. See for
+   // instance WebCore::FrameLoader::HideReferrer.
+   if (referrer.is_valid()) {
+     request_info_.extra_headers.SetHeader(HttpRequestHeaders::kReferer,
+                                           referrer.spec());
+-  }
++  }*/
+
+   request_info_.extra_headers.SetHeaderIfMissing(
+       HttpRequestHeaders::kUserAgent,
